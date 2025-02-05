@@ -3,7 +3,7 @@ name: Merge feature branch with dev
 on:
   push:
     branches:
-      - feature/*  # Trigger this workflow when there's a push to any Geolocation feature branch
+      - feature # Trigger this workflow when there's a push to any Geolocation feature branch
 
 jobs:
   merge:

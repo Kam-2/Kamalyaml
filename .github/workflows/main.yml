@@ -1,0 +1,45 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "feature" ]
+
+permissions:
+  contents: write  # Ensures the workflow has permission to push changes
+  
+jobs:
+  merge:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout feature branch
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref }}  # Checkout the branch that triggered the workflow
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "Kam-2"
+          git config --global user.email "Kamal@cube84.com"
+
+      - name: Checkout dev branch
+        run: |
+          git fetch origin dev
+          git checkout dev
+
+      - name: Merge feature branch into dev
+        run: |
+              git merge ${{ github.ref }} --no-ff --allow-unrelated-histories -m "Merge feature branch to dev"
+              git checkout --ours force-app/main/default/classes/SampleClass.cls  # Resolve conflict by keeping dev branch changes
+              git add force-app/main/default/classes/SampleClass.cls  # Stage the resolved file
+              git commit -m "Resolved merge conflict in SampleClass.cls"  # Com
+
+      - name: Push changes to dev branch
+        run: |
+          git push origin dev
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN  }}  # Use GitHub's token for authentication

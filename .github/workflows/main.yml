@@ -1,0 +1,36 @@
+name: Merge feature branch with dev
+
+on:
+  push:
+    branches:
+      - feature/*  # Trigger this workflow when there's a push to any Geolocation feature branch
+
+jobs:
+  merge:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout feature branch
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref }}  # Checkout the branch that triggered the workflow
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "Kam-2"
+          git config --global user.email "Kamal@cube84.com"
+
+      - name: Checkout dev branch
+        run: |
+          git fetch origin dev
+          git checkout dev
+
+      - name: Merge feature branch into dev
+        run: |
+          git merge ${{ github.ref }} --no-ff -m "Merge feature branch to dev"
+
+      - name: Push changes to dev branch
+        run: |
+          git push origin dev
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Use GitHub's token for authentication

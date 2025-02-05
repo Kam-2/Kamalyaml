@@ -9,4 +9,4 @@ public class SampleClass {       //Class definition and body
       return myValue;
    }
 } 
-// i am adding to the feature now new
+// i am adding to the feature now 

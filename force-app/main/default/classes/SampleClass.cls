@@ -10,3 +10,5 @@ public class SampleClass {       //Class definition and body
    }
 } 
 
+// try adding scripts
+

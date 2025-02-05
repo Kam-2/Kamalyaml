@@ -10,5 +10,5 @@ public class SampleClass {       //Class definition and body
    }
 } 
 
-// try adding scripts
+// try adding scripts to feature
 

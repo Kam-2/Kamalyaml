@@ -8,4 +8,5 @@ public class SampleClass {       //Class definition and body
       myValue = myValue+10;
       return myValue;
    }
-}
+} 
+// i am adding

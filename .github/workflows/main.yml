@@ -29,7 +29,8 @@ jobs:
 
       - name: Merge feature branch into dev
         run: |
-          git merge ${{ github.ref }} --no-ff -m "Merge feature branch to dev"
+              git merge ${{ github.ref }} --no-ff --allow-unrelated-histories -m "Merge feature branch to dev"
+
 
       - name: Push changes to dev branch
         run: |

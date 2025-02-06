@@ -10,5 +10,5 @@ public class SampleClass {       //Class definition and body
    }
 } 
 
-// new class
+// new class changes
 

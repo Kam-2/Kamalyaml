@@ -36,9 +36,6 @@ jobs:
          git checkout dev
          git merge --allow-unrelated-histories --no-ff --no-edit ${{ github.ref_name }}
 
-
-      - name: Push changes to dev branch
+      - name: Push Changes to Dev
         run: |
           git push origin dev
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN  }}  # Use GitHub's token for authentication

@@ -32,11 +32,10 @@ jobs:
           git checkout dev
 
       - name: Merge feature branch into dev
-         run: |
+        run: |
           git checkout dev
           git merge --no-ff --no-edit ${{ github.ref_name }}
 
       - name: Push Changes to Dev
         run: |
           git push origin dev
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN  }}  # Use GitHub's token for authentication

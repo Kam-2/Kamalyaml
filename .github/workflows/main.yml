@@ -30,8 +30,7 @@ jobs:
        - name: Merge feature branch into dev
         run: |
           git checkout dev
-          git merge --no-ff --no-edit ${{ github.ref_name }}
-
+          git merge --allow-unrelated-histories --no-ff --no-edit ${{ github.ref_name }}
       - name: Push Changes to Dev
         run: |
           git push origin dev

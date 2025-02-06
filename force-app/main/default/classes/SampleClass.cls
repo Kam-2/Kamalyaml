@@ -10,5 +10,5 @@ public class SampleClass {       //Class definition and body
    }
 } 
 
-// new class changes done for feature
+// new class changes done for feature to dev
 

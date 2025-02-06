@@ -33,10 +33,10 @@ jobs:
 
       - name: Merge feature branch into dev
         run: |
-              git merge ${{ github.ref }} --no-ff --allow-unrelated-histories -m "Merge feature branch to dev"
-              git checkout --ours force-app/main/default/classes/SampleClass.cls  # Resolve conflict by keeping dev branch changes
-              git add force-app/main/default/classes/SampleClass.cls  # Stage the resolved file
-              git commit -m "Resolved merge conflict in SampleClass.cls"  # Com
+          git merge ${{ github.ref }} --no-ff --allow-unrelated-histories -m "Merge feature branch to dev"
+          git checkout --ours force-app/main/default/classes/SampleClass.cls  # Resolve conflict by keeping dev branch changes
+          git add force-app/main/default/classes/SampleClass.cls  # Stage the resolved file
+          git commit -m "Resolved merge conflict in SampleClass.cls"  # Com
 
 
       - name: Push changes to dev branch

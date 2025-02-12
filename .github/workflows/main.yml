@@ -31,7 +31,8 @@ jobs:
           git checkout dev
       - name: Merge feature branch into dev
         run: |
-              git merge ${{ github.ref }} --no-ff --allow-unrelated-histories -m "Merge feature branch to dev"
+              git merge refs/heads/feature --no-ff --allow-unrelated-histories -X theirs -m "Merge feature branch to dev"
+
              
       - name: Push changes to dev branch
         run: |

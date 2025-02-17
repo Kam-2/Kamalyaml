@@ -9,4 +9,6 @@ public class SampleClass {       //Class definition and body
       return myValue;
    }
 } 
-// i am adding to the feature now  for yaml 1
+
+// new class  comments added workflow
+

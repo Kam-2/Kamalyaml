@@ -1,0 +1,31 @@
+name: All files Push to Target Repo
+
+on:
+  push:
+    branches:
+      - main  # Change to the branch you want to trigger this action
+
+jobs:
+  push-code:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "Kam-2"
+          git config --global user.email "Kamal@cube84.com"
+          
+      - name: Push Code to Target Repository
+        env:
+          TARGET_REPO_TOKEN: ${{ secrets.SOURCE_REPO_TOKEN }}
+        run: |
+          git clone https://x-access-token:${TARGET_REPO_TOKEN}@github.com/Kam-2/Kamalyaml.git target-repo
+          cd target-repo
+          git checkout main  # Change if your target branch is different
+          rsync -av --exclude='.git' ../. .
+          git add .
+          git commit -m "Automated sync from source repo"
+          git push origin main

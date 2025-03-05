@@ -1,0 +1,49 @@
+name: Push Code to Another Repo
+
+on:
+  push:
+    branches:
+      - main  # Trigger this workflow on pushes to the main branch
+
+jobs:
+  push-to-repo:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Source Repository
+      uses: actions/checkout@v3
+
+    - name: Set Up Git
+      run: |
+        git config --global user.name "Kam-2"
+        git config --global user.email "Kamal@cube84.com"
+
+    - name: Clone Target Repository
+      run: |
+        if [ -d "target-repo" ]; then
+          echo "Directory exists. Pulling latest changes."
+          cd target-repo
+          git fetch origin
+          git reset --hard origin/main
+        else
+          echo "Cloning target repository."
+          git clone https://x-access-token:${{ secrets.SOURCE_REPO_TOKEN }}@github.com/Kam-2/Kamalyaml.git target-repo
+        fi
+
+    - name: Copy Specific Files to Target Repo
+      run: |
+        cp -r .github/workflows/repotorepo.yml target-repo/.github/workflows/
+
+    - name: Commit and Push Changes
+      run: |
+        cd target-repo
+        git status
+        git add .github/workflows/repotorepo.yml
+        git commit -m "Updated repotorepo.yml from source repo" || echo "No changes to commit"
+        git push https://x-access-token:${{ secrets.SOURCE_REPO_TOKEN }}@github.com/Kam-2/Kamalyaml.git main
+        
+
+    - name: Verify Push
+      run: |
+        cd target-repo
+        git log -1

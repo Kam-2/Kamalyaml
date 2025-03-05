@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 name: Deploy to Salesforce
 
 on:
@@ -32,3 +33,45 @@ jobs:
         SF_SANDBOX_USERNAME: ${{ secrets.SF_SANDBOX_USERNAME }}
       run: |
         sfdx force:source:deploy -p "force-app/main/default/lwc/newCase,force-app/main/default/classes/DynamicFieldSetController.cls,force-app/main/default/staticresources/Casecss.resource,force-app/main/default/labels/CustomLabels.labels-meta.xml" -u $SF_SANDBOX_USERNAME
+=======
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "feature" ]
+
+permissions:
+  contents: write  # Ensures the workflow has permission to push changes
+  
+jobs:
+  merge:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout feature branch
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref }}  # Checkout the branch that triggered the workflow
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "Kam-2"
+          git config --global user.email "Kamal@cube84.com"
+      - name: Checkout dev branch
+        run: |
+          git fetch origin dev
+          git checkout dev
+      - name: Merge feature branch into dev
+        run: |
+              git merge refs/heads/feature --no-ff --allow-unrelated-histories -X theirs -m "Merge feature branch to dev"
+             
+      - name: Push changes to dev branch
+        run: |
+          git push origin dev
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN  }}  # Use GitHub's token for authentication
+>>>>>>> ff9ae46afdcc7917b2e34fe89d2aef3b9b502897
